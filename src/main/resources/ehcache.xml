@@ -1,0 +1,42 @@
+<config
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3
+            http://www.ehcache.org/schema/ehcache-core-3.7.xsd">
+
+    <!-- Persistent cache directory -->
+    <persistence directory="bot-ehcache/cache" />
+
+    <!-- Default cache template -->
+    <cache-template name="per-minute">
+        <expiry>
+            <ttl unit="minutes">1</ttl>
+        </expiry>
+
+        <resources>
+            <heap>1000</heap>
+            <offheap unit="MB">10</offheap>
+            <disk persistent="true" unit="MB">20</disk>
+        </resources>
+    </cache-template>
+
+    <!-- Cache configurations -->
+
+    <cache alias="sessionCache" uses-template="per-minute">
+        <key-type>java.lang.Long</key-type>
+        <value-type>ent.entity.auth.SessionUser</value-type>
+    </cache>
+    <cache alias="dailyLimit" uses-template="per-minute">
+        <key-type>java.lang.Long</key-type>
+        <value-type>java.lang.Integer</value-type>
+    </cache>
+    <cache alias="isRegistered" uses-template="per-minute">
+        <key-type>java.lang.Long</key-type>
+        <value-type>java.lang.Boolean</value-type>
+    </cache>
+    <cache alias="isAdmin" uses-template="per-minute">
+        <key-type>java.lang.Long</key-type>
+        <value-type>java.lang.Boolean</value-type>
+    </cache>
+
+</config>
